@@ -6,12 +6,7 @@ public final class RandomEvent extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
-
+        System.out.println("Random event will happen.");
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
 }
