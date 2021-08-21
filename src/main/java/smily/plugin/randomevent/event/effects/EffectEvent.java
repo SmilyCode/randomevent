@@ -29,7 +29,7 @@ public class EffectEvent {
             new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, second.setTick(10), Randomizer.randomValue(2)),
     };
 
-    public EffectEvent(Player p) {
+    protected EffectEvent(Player p) {
         setRandomEffect(p);
         potionMessage(p);
         playEffectSound(p);
