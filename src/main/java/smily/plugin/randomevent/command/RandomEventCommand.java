@@ -1,5 +1,6 @@
 package smily.plugin.randomevent.command;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -7,6 +8,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import smily.plugin.randomevent.event.effects.EffectEvent;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -21,6 +23,7 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time second = PluginContext.context.getBean(Second.class);
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
+
     public static int cooldown;
 
     @Override
@@ -49,6 +52,11 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     break;
                 case "start":
                     cooldown = minute.setTick(1);
+                    Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
+                        Bukkit.getOnlinePlayers().stream().forEach(player -> {
+                            new EffectEvent(player);
+                        });
+                    }, 0, cooldown);
                     break;
                 case "stop":
                     break;
