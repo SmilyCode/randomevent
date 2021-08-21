@@ -4,12 +4,15 @@ import com.google.common.annotations.Beta;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 import smily.plugin.randomevent.util.PluginContext;
 import smily.plugin.randomevent.util.Randomizer;
 
 public class RandomMobsLogic {
 
-    private final MobsList mobType = PluginContext.context.getBean(MobsList.class);
+    @Autowired
+    MobsList mobType;
+
     private EntityType mob;
 
     // Spawn on player's feet location

@@ -35,6 +35,7 @@ public class AnnotationConfiguration {
     public MobsList getMobsList(){
         return new MobsList();
     }
+
     @Bean
     public RandomMobsLogic getRandomMobsLogic(){
         return new RandomMobsLogic();

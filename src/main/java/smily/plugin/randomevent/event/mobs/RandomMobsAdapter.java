@@ -6,7 +6,7 @@ import smily.plugin.randomevent.util.PluginContext;
 
 public class RandomMobsAdapter implements Event{
 
-    private final RandomMobsLogic randomMobsSpawnLogic = PluginContext.context.getBean(RandomMobsLogic.class);
+    RandomMobsLogic randomMobsSpawnLogic = PluginContext.context.getBean(RandomMobsLogic.class);
 
     @Override
     public void doEvent(Player player) {
