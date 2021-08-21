@@ -1,5 +1,7 @@
 package smily.plugin.randomevent.event.effects;
 
+import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -30,34 +32,55 @@ public class EffectEvent {
     public EffectEvent(Player p) {
         setRandomEffect(p);
         potionMessage(p);
+        playEffectSound(p);
     }
 
-    void setRandomEffect(Player p) {
+    private void setRandomEffect(Player p) {
         p.addPotionEffect(potionEffect = (PotionEffect) Randomizer.randomListValue(Arrays.asList(potionEffectList)));
     }
 
-    void potionMessage(Player p) {
+    private void potionMessage(Player p) {
         if (potionEffect != null) {
             if (potionEffect.getType().equals(PotionEffectType.LEVITATION)) {
-                p.sendMessage("Wah enak ya pemandangannya!");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Wah enak ya pemandangannya!");
             } else if (potionEffect.getType().equals(PotionEffectType.CONFUSION)) {
-                p.sendMessage("Aduh kok pusing ya?");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Aduh kok pusing ya?");
             } else if (potionEffect.getType().equals(PotionEffectType.HUNGER)) {
-                p.sendMessage("Bunyi perut siapa itu?");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Bunyi perut siapa itu?");
             } else if (potionEffect.getType().equals(PotionEffectType.SATURATION)) {
-                p.sendMessage("Wih udh kenyang nih.");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Wih udh kenyang nih.");
             } else if (potionEffect.getType().equals(PotionEffectType.REGENERATION)) {
-                p.sendMessage("Ayo Sembuh!");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Ayo Sembuh!");
             } else if (potionEffect.getType().equals(PotionEffectType.POISON)) {
-                p.sendMessage("Siapa yang racuni aku?");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Siapa yang racuni aku?");
             } else if (potionEffect.getType().equals(PotionEffectType.FIRE_RESISTANCE)) {
-                p.sendMessage("Aku Kebal Api Hahaha");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Aku Kebal Api Hahaha");
             } else if (potionEffect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE)) {
-                p.sendMessage("Aku kebal dari serangan musuh hahaha!");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Aku kebal dari serangan musuh hahaha!");
             } else if (potionEffect.getType().equals(PotionEffectType.JUMP)) {
-                p.sendMessage("Sepertinya aku tertular kelinci");
-            } else if (potionEffect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE)) {
-                p.sendMessage("Cepat! Cepat! Cepat!");
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Sepertinya aku tertular kelinci");
+            } else if (potionEffect.getType().equals(PotionEffectType.SPEED)) {
+                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Cepat! Cepat! Cepat!");
+            }
+        }
+    }
+
+    private void playEffectSound(Player p) {
+        if (potionEffect != null) {
+            if (potionEffect.getType().equals(PotionEffectType.JUMP) ||
+                    potionEffect.getType().equals(PotionEffectType.REGENERATION) ||
+                    potionEffect.getType().equals(PotionEffectType.FIRE_RESISTANCE) ||
+                    potionEffect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE) ||
+                    potionEffect.getType().equals(PotionEffectType.SATURATION) ||
+                    potionEffect.getType().equals(PotionEffectType.SPEED)){
+                p.playSound(p.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 0f);
+            } else
+                if (potionEffect.getType().equals(PotionEffectType.POISON) ||
+                    potionEffect.getType().equals(PotionEffectType.LEVITATION) ||
+                    potionEffect.getType().equals(PotionEffectType.CONFUSION) ||
+                    potionEffect.getType().equals(PotionEffectType.HUNGER))
+            {
+                p.playSound(p.getLocation(), Sound.ENTITY_WITCH_AMBIENT, 1f, 2f);
             }
         }
     }
