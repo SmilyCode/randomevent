@@ -2,6 +2,7 @@ package smily.plugin.randomevent.event.effects;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -42,27 +43,16 @@ public class EffectEvent {
 
     private void potionMessage(Player p) {
         if (potionEffect != null) {
-            if (potionEffect.getType().equals(PotionEffectType.LEVITATION)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Wah enak ya pemandangannya!");
-            } else if (potionEffect.getType().equals(PotionEffectType.CONFUSION)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Aduh kok pusing ya?");
-            } else if (potionEffect.getType().equals(PotionEffectType.HUNGER)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Bunyi perut siapa itu?");
-            } else if (potionEffect.getType().equals(PotionEffectType.SATURATION)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Wih udh kenyang nih.");
-            } else if (potionEffect.getType().equals(PotionEffectType.REGENERATION)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Ayo Sembuh!");
-            } else if (potionEffect.getType().equals(PotionEffectType.POISON)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Siapa yang racuni aku?");
-            } else if (potionEffect.getType().equals(PotionEffectType.FIRE_RESISTANCE)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Aku Kebal Api Hahaha");
-            } else if (potionEffect.getType().equals(PotionEffectType.DAMAGE_RESISTANCE)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Aku kebal dari serangan musuh hahaha!");
-            } else if (potionEffect.getType().equals(PotionEffectType.JUMP)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Sepertinya aku tertular kelinci");
-            } else if (potionEffect.getType().equals(PotionEffectType.SPEED)) {
-                p.sendMessage("[" + ChatColor.GREEN + "RandomEvent" + ChatColor.WHITE + "]" + " Cepat! Cepat! Cepat!");
-            }
+            setPotionEffectMessage(p, PotionEffectType.LEVITATION, "Wah pemandangan yang indah ya!");
+            setPotionEffectMessage(p, PotionEffectType.CONFUSION, "Aduh kok pusing ya?");
+            setPotionEffectMessage(p, PotionEffectType.HUNGER, "Bunyi perut siapa itu?");
+            setPotionEffectMessage(p, PotionEffectType.SATURATION, "Wih udh kenyang nih.");
+            setPotionEffectMessage(p, PotionEffectType.REGENERATION, "Ayo Sembuh!");
+            setPotionEffectMessage(p, PotionEffectType.POISON, "Siapa yang racuni aku?!");
+            setPotionEffectMessage(p, PotionEffectType.FIRE_RESISTANCE, "Aku kebal Api Hahaha");
+            setPotionEffectMessage(p, PotionEffectType.DAMAGE_RESISTANCE, "Aku kebal dari serangan musuh hahaha!");
+            setPotionEffectMessage(p, PotionEffectType.JUMP, "Sepertinya aku tertular kelinci");
+            setPotionEffectMessage(p, PotionEffectType.SPEED, "Cepat! Cepat! Cepat!");
         }
     }
 
@@ -83,6 +73,13 @@ public class EffectEvent {
             {
                 p.playSound(p.getLocation(), Sound.ENTITY_WITCH_AMBIENT, 1f, 2f);
             }
+        }
+
+    }
+
+    private void setPotionEffectMessage(Player p, PotionEffectType type, String message){
+        if (potionEffect.getType().equals(type)){
+            p.sendMessage("[" + ChatColor.RED + "RandomEffect" + ChatColor.WHITE + "]" + " " + message);
         }
     }
 }
