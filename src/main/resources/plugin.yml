@@ -1,0 +1,6 @@
+name: RandomEvent
+version: ${project.version}
+main: smily.plugin.randomevent.RandomEvent
+api-version: 1.17
+authors: [ SmilyKuy ]
+description: With this plugin, a random event always happen.
