@@ -4,6 +4,6 @@ import org.bukkit.entity.Player;
 
 public class EffectEventAdapter {
     public EffectEventAdapter(Player p){
-        new EffectEvent(p)
+        new EffectEvent(p);
     }
 }

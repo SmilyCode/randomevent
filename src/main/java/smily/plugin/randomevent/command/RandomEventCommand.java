@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import smily.plugin.randomevent.event.effects.EffectEvent;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
+import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -66,7 +67,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         sendGlobalMessage(sender, "Random event will happen...");
                         Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
                             Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                                new EffectEventAdapter(player);
+                                //new EffectEventAdapter(player);
+                                new RandomMobsLogic().randomSpawn(player);
                             });
                         }, 0, cooldown);
                     }

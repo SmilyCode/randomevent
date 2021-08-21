@@ -1,6 +1,7 @@
 package smily.plugin.randomevent.util;
 
 import org.springframework.context.annotation.Bean;
+import smily.plugin.randomevent.event.mobs.MobsList;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -27,5 +28,10 @@ public class AnnotationConfiguration {
     @Bean
     public Tick getTick(){
         return new Tick();
+    }
+
+    @Bean
+    public MobsList getMobsList(){
+        return new MobsList();
     }
 }
