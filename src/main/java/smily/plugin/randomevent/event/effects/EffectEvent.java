@@ -11,22 +11,23 @@ import smily.plugin.randomevent.util.PluginContext;
 import smily.plugin.randomevent.util.Randomizer;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class EffectEvent {
 
     PotionEffect potionEffect;
     Time second = PluginContext.context.getBean(Second.class);
     PotionEffect[] potionEffectList = {
-            new PotionEffect(PotionEffectType.LEVITATION, second.setTick(10), Randomizer.randomValue(2)),
-            new PotionEffect(PotionEffectType.CONFUSION, second.setTick(10), Randomizer.randomValue(10)),
-            new PotionEffect(PotionEffectType.HUNGER, second.setTick(10), Randomizer.randomValue(3)),
-            new PotionEffect(PotionEffectType.SATURATION, second.setTick(10), Randomizer.randomValue(3)),
-            new PotionEffect(PotionEffectType.SPEED, second.setTick(10), Randomizer.randomValue(5)),
-            new PotionEffect(PotionEffectType.JUMP, second.setTick(10), Randomizer.randomValue(5)),
-            new PotionEffect(PotionEffectType.POISON, second.setTick(10), Randomizer.randomValue(3)),
-            new PotionEffect(PotionEffectType.REGENERATION, second.setTick(10), Randomizer.randomValue(2)),
-            new PotionEffect(PotionEffectType.FIRE_RESISTANCE, second.setTick(10), Randomizer.randomValue(2)),
-            new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, second.setTick(10), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.LEVITATION, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.CONFUSION, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(10)),
+            new PotionEffect(PotionEffectType.HUNGER, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(3)),
+            new PotionEffect(PotionEffectType.SATURATION, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(3)),
+            new PotionEffect(PotionEffectType.SPEED, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(5)),
+            new PotionEffect(PotionEffectType.JUMP, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(5)),
+            new PotionEffect(PotionEffectType.POISON, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(3)),
+            new PotionEffect(PotionEffectType.REGENERATION, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.FIRE_RESISTANCE, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, second.setTick(Randomizer.randomValue(30)), Randomizer.randomValue(2)),
     };
 
     protected EffectEvent(Player p) {
