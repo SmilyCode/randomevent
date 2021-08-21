@@ -8,16 +8,20 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import smily.plugin.randomevent.event.Event;
 import smily.plugin.randomevent.event.effects.EffectEvent;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
+import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
 import smily.plugin.randomevent.time.Time;
 import smily.plugin.randomevent.util.PluginContext;
+import smily.plugin.randomevent.util.Randomizer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RandomEventCommand implements CommandExecutor, TabCompleter {
@@ -25,6 +29,11 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time second = PluginContext.context.getBean(Second.class);
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
+
+    Event[] events = {
+            new EffectEventAdapter(),
+            new RandomMobsAdapter()
+    };
 
     public static Integer cooldown;
 
@@ -67,8 +76,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         sendGlobalMessage(sender, "Random event will happen...");
                         Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
                             Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                                //new EffectEventAdapter(player);
-                                new RandomMobsLogic().randomSpawn(player);
+                                Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+                                event.doEvent(player);
                             });
                         }, 0, cooldown);
                     }

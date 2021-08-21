@@ -12,7 +12,6 @@ import smily.plugin.randomevent.util.PluginContext;
 import smily.plugin.randomevent.util.Randomizer;
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class EffectEvent {
 

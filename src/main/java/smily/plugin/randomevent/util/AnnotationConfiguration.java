@@ -2,6 +2,7 @@ package smily.plugin.randomevent.util;
 
 import org.springframework.context.annotation.Bean;
 import smily.plugin.randomevent.event.mobs.MobsList;
+import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -33,5 +34,9 @@ public class AnnotationConfiguration {
     @Bean
     public MobsList getMobsList(){
         return new MobsList();
+    }
+    @Bean
+    public RandomMobsLogic getRandomMobsLogic(){
+        return new RandomMobsLogic();
     }
 }
