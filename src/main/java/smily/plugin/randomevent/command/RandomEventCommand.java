@@ -34,15 +34,15 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     if (args[1] != null){
                         switch (args[2]) {
                             case "second":
-                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[2]) + " second");
+                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " second");
                                 cooldown = second.setTick(Integer.parseInt(args[1]));
                                 break;
                             case "minute":
-                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[2]) + " minute");
+                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " minute");
                                 cooldown = minute.setTick(Integer.parseInt(args[1]));
                                 break;
                             case "tick":
-                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[2]) + " tick");
+                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " tick");
                                 cooldown = tick.setTick(Integer.parseInt(args[1]));
                                 break;
                             default:
