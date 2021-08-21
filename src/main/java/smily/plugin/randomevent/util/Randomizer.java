@@ -1,7 +1,8 @@
-package smily.plugin.randomevent.event.util;
+package smily.plugin.randomevent.util;
 
-import smily.plugin.randomevent.util.PluginContext;
+import org.springframework.lang.NonNull;
 
+import java.util.List;
 import java.util.Random;
 
 public class Randomizer {
@@ -17,5 +18,9 @@ public class Randomizer {
 
     public static double randomValue(){
         return random.nextDouble();
+    }
+
+    public Object randomEnumValue(@NonNull List list){
+        return list.get(randomValue(list.size()));
     }
 }
