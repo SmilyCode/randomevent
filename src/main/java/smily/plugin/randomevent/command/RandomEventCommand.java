@@ -24,7 +24,7 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
 
-    public static int cooldown;
+    public static Integer cooldown;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -34,31 +34,45 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     if (args[1] != null){
                         switch (args[2]) {
                             case "second":
-                                cooldown = second.setTick(Integer.parseInt(args[2]));
+                                sendGlobalMessage(sender, "set cooldown to " + cooldown + " second");
+                                cooldown = second.setTick(Integer.parseInt(args[1]));
                                 break;
                             case "minute":
-                                cooldown = minute.setTick(Integer.parseInt(args[2]));
+                                sendGlobalMessage(sender, "set cooldown to " + cooldown + " minute");
+                                cooldown = minute.setTick(Integer.parseInt(args[1]));
                                 break;
                             case "tick":
-                                cooldown = tick.setTick(Integer.parseInt(args[2]));
+                                sendGlobalMessage(sender, "set cooldown to " + cooldown + " tick");
+                                cooldown = tick.setTick(Integer.parseInt(args[1]));
                                 break;
                             default:
-                                sendGlobalMessage(sender, "Unit cannot be null, or didn't exist");
-                                break;
+                                sendGlobalMessage(sender, "Unit doesn't exist");
                         }
+
+                        if (args[2] == null){
+                            sendGlobalMessage(sender, "Unit cannot be null");
+                            break;
+                        }
+                        
                     } else {
                         sendGlobalMessage(sender, "time cannot be null");
                     }
                     break;
                 case "start":
-                    cooldown = minute.setTick(1);
-                    Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
-                        Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                            new EffectEvent(player);
-                        });
-                    }, 0, cooldown);
+                    if (cooldown == null) {
+                        cooldown = minute.setTick(1);
+                    } else {
+                        sendGlobalMessage(sender, "Random event will happen...");
+                        Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
+                            Bukkit.getOnlinePlayers().stream().forEach(player -> {
+                                new EffectEvent(player);
+                            });
+                        }, 0, cooldown);
+                    }
                     break;
                 case "stop":
+                    sendGlobalMessage(sender, "Random event stop happen");
+                    Bukkit.getScheduler().cancelTasks(PluginContext.plugin);
                     break;
                 default:
                     sendGlobalMessage(sender, "not enough argument");

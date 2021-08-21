@@ -4,3 +4,6 @@ main: smily.plugin.randomevent.RandomEvent
 api-version: 1.17
 authors: [ SmilyKuy ]
 description: With this plugin, a random event always happen.
+commands:
+  randomevent:
+    description: will start, stop, and set cooldown for random event game.
