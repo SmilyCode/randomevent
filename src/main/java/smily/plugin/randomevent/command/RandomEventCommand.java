@@ -34,15 +34,15 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     if (args[1] != null){
                         switch (args[2]) {
                             case "second":
-                                sendGlobalMessage(sender, "set cooldown to " + cooldown + " second");
+                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[2]) + " second");
                                 cooldown = second.setTick(Integer.parseInt(args[1]));
                                 break;
                             case "minute":
-                                sendGlobalMessage(sender, "set cooldown to " + cooldown + " minute");
+                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[2]) + " minute");
                                 cooldown = minute.setTick(Integer.parseInt(args[1]));
                                 break;
                             case "tick":
-                                sendGlobalMessage(sender, "set cooldown to " + cooldown + " tick");
+                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[2]) + " tick");
                                 cooldown = tick.setTick(Integer.parseInt(args[1]));
                                 break;
                             default:
@@ -53,7 +53,7 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                             sendGlobalMessage(sender, "Unit cannot be null");
                             break;
                         }
-                        
+
                     } else {
                         sendGlobalMessage(sender, "time cannot be null");
                     }

@@ -3,6 +3,9 @@ package smily.plugin.randomevent.event.effects;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import smily.plugin.randomevent.time.Second;
+import smily.plugin.randomevent.time.Time;
+import smily.plugin.randomevent.util.PluginContext;
 import smily.plugin.randomevent.util.Randomizer;
 
 import java.util.Arrays;
@@ -10,22 +13,23 @@ import java.util.Arrays;
 public class EffectEvent {
 
     PotionEffect potionEffect;
+    Time second = PluginContext.context.getBean(Second.class);
     PotionEffect[] potionEffectList = {
-            new PotionEffect(PotionEffectType.LEVITATION, 10, Randomizer.randomValue(2)),
-            new PotionEffect(PotionEffectType.CONFUSION, 10, Randomizer.randomValue(10)),
-            new PotionEffect(PotionEffectType.HUNGER, 10, Randomizer.randomValue(3)),
-            new PotionEffect(PotionEffectType.SATURATION, 10, Randomizer.randomValue(3)),
-            new PotionEffect(PotionEffectType.SPEED, 10, Randomizer.randomValue(5)),
-            new PotionEffect(PotionEffectType.JUMP, 10, Randomizer.randomValue(5)),
-            new PotionEffect(PotionEffectType.POISON, 10, Randomizer.randomValue(3)),
-            new PotionEffect(PotionEffectType.REGENERATION, 10, Randomizer.randomValue(2)),
-            new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 10, Randomizer.randomValue(2)),
-            new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 10, Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.LEVITATION, second.setTick(10), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.CONFUSION, second.setTick(10), Randomizer.randomValue(10)),
+            new PotionEffect(PotionEffectType.HUNGER, second.setTick(10), Randomizer.randomValue(3)),
+            new PotionEffect(PotionEffectType.SATURATION, second.setTick(10), Randomizer.randomValue(3)),
+            new PotionEffect(PotionEffectType.SPEED, second.setTick(10), Randomizer.randomValue(5)),
+            new PotionEffect(PotionEffectType.JUMP, second.setTick(10), Randomizer.randomValue(5)),
+            new PotionEffect(PotionEffectType.POISON, second.setTick(10), Randomizer.randomValue(3)),
+            new PotionEffect(PotionEffectType.REGENERATION, second.setTick(10), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.FIRE_RESISTANCE, second.setTick(10), Randomizer.randomValue(2)),
+            new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, second.setTick(10), Randomizer.randomValue(2)),
     };
 
     public EffectEvent(Player p) {
-        potionMessage(p);
         setRandomEffect(p);
+        potionMessage(p);
     }
 
     void setRandomEffect(Player p) {
