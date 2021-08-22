@@ -8,6 +8,7 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import smily.plugin.randomevent.ConfigPlugin;
 import smily.plugin.randomevent.event.Event;
 import smily.plugin.randomevent.event.effects.EffectEvent;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
@@ -85,6 +86,11 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                 case "stop":
                     sendGlobalMessage(sender, "Random event stop happen");
                     Bukkit.getScheduler().cancelTasks(PluginContext.plugin);
+                    break;
+
+                case "reload":
+                    ConfigPlugin.reload();
+                    sendGlobalMessage(sender, "Random Event config has reloaded");
                     break;
                 default:
                     sendGlobalMessage(sender, "not enough argument");
