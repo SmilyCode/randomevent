@@ -8,8 +8,8 @@ import smily.plugin.randomevent.util.PluginContext;
 import java.io.File;
 
 public class ConfigPlugin {
-    private static File configFile = new File(PluginContext.plugin.getDataFolder(), "config.yml");
-    private static FileConfiguration config;
+    private static File configFile;
+    private static FileConfiguration config = PluginContext.plugin.getConfig();
 
     public static void saveConfig(){
         PluginContext.plugin.saveConfig();
@@ -20,6 +20,7 @@ public class ConfigPlugin {
     }
 
     public static void reload(){
+        configFile = new File(PluginContext.plugin.getDataFolder(), "config.yml");
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 

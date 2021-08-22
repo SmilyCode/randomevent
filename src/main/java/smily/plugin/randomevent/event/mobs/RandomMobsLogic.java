@@ -74,10 +74,18 @@ public class RandomMobsLogic {
     }
 
     public Integer getMaxValue() {
+        if (maxValue == null){
+            maxValue = (Integer) ConfigPlugin.get("random_mobs.random_value.max");
+        }
+
         return maxValue;
     }
 
     public Integer getMinValue() {
+        if (minValue == null){
+            minValue = (Integer) ConfigPlugin.get("random_mobs.random_value.min");
+        }
+
         return minValue;
     }
 }

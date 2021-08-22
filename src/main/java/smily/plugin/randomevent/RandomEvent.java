@@ -11,8 +11,6 @@ public final class RandomEvent extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
-
-
         getCommand("randomevent").setExecutor(new RandomEventCommand());
     }
 

@@ -12,16 +12,16 @@ import smily.plugin.randomevent.ConfigPlugin;
 import smily.plugin.randomevent.event.Event;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
+import smily.plugin.randomevent.event.tnt.NukeEvent;
+import smily.plugin.randomevent.event.tnt.TntEvent;
 import smily.plugin.randomevent.event.util.EventErrorHandler;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
 import smily.plugin.randomevent.time.Time;
 import smily.plugin.randomevent.util.PluginContext;
-import smily.plugin.randomevent.util.Randomizer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RandomEventCommand implements CommandExecutor, TabCompleter {
@@ -29,6 +29,7 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time second = PluginContext.context.getBean(Second.class);
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
+    EventErrorHandler errorHandler = PluginContext.context.getBean(EventErrorHandler.class);
 
     Event[] events = {
             new EffectEventAdapter(),
@@ -70,15 +71,16 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     }
                     break;
                 case "start":
-                    if (!EventErrorHandler.getAllError(sender)) {
+                    if (!errorHandler.getAllError(sender)) {
                         if (cooldown == null) {
                             cooldown = minute.setTick(1);
                         } else {
                             sendGlobalMessage(sender, "Random event will happen...");
                             Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
                                 Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
-                                    event.doEvent(player);
+//                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+//                                    event.doEvent(player);
+                                    new NukeEvent().nukeEvent(player);
                                 });
                             }, 0, cooldown);
                         }

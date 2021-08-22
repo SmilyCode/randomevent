@@ -3,6 +3,9 @@ package smily.plugin.randomevent.util;
 import org.springframework.context.annotation.Bean;
 import smily.plugin.randomevent.event.mobs.MobsList;
 import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
+import smily.plugin.randomevent.event.tnt.NukeEvent;
+import smily.plugin.randomevent.event.tnt.TntEvent;
+import smily.plugin.randomevent.event.util.EventErrorHandler;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -41,4 +44,18 @@ public class AnnotationConfiguration {
         return new RandomMobsLogic();
     }
 
+    @Bean
+    public EventErrorHandler getEventErrorHandler(){
+        return new EventErrorHandler();
+    }
+
+    @Bean
+    public TntEvent getTntEvent(){
+        return new TntEvent();
+    }
+
+    @Bean
+    public NukeEvent getNukeEvent(){
+        return new NukeEvent();
+    }
 }
