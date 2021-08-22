@@ -40,4 +40,5 @@ public class AnnotationConfiguration {
     public RandomMobsLogic getRandomMobsLogic(){
         return new RandomMobsLogic();
     }
+
 }

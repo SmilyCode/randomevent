@@ -5,15 +5,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
-import smily.plugin.randomevent.util.PluginContext;
+import smily.plugin.randomevent.ConfigPlugin;
 import smily.plugin.randomevent.util.Randomizer;
 
 public class RandomMobsLogic {
 
     @Autowired
     MobsList mobType;
-
     private EntityType mob;
+    private Integer maxValue;
+    private Integer minValue;
+
 
     // Spawn on player's feet location
     public void spawnOnPlayer(Player p, int howMany){
@@ -27,7 +29,7 @@ public class RandomMobsLogic {
 
     // Spawn randomly (on player, or arround player)
     public void randomSpawn(Player p){
-        spawnOnPlayer(p, Randomizer.randomValue(10));
+        spawnOnPlayer(p, getValueFromConfig());
     }
 
     // call a method to spawn all the spawn message logic
@@ -65,7 +67,17 @@ public class RandomMobsLogic {
 
     }
 
+    private int getValueFromConfig(){
+        maxValue = (Integer) ConfigPlugin.get("random_mobs.random_value.max");
+        minValue = (Integer) ConfigPlugin.get("random_mobs.random_value.min");
+        return Randomizer.randomValue(minValue, maxValue);
+    }
 
+    public Integer getMaxValue() {
+        return maxValue;
+    }
 
-
+    public Integer getMinValue() {
+        return minValue;
+    }
 }

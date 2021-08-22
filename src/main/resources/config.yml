@@ -1,7 +1,4 @@
-randommobs:
-  setvalue:
-    value: null
-
-  randomvalue:
+random_mobs:
+  random_value:
     max: 10
     min: 0

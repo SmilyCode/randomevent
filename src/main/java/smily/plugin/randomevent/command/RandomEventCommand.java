@@ -10,10 +10,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import smily.plugin.randomevent.ConfigPlugin;
 import smily.plugin.randomevent.event.Event;
-import smily.plugin.randomevent.event.effects.EffectEvent;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
-import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
+import smily.plugin.randomevent.event.util.EventErrorHandler;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -71,16 +70,20 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     }
                     break;
                 case "start":
-                    if (cooldown == null) {
-                        cooldown = minute.setTick(1);
+                    if (!EventErrorHandler.getAllError(sender)) {
+                        if (cooldown == null) {
+                            cooldown = minute.setTick(1);
+                        } else {
+                            sendGlobalMessage(sender, "Random event will happen...");
+                            Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
+                                Bukkit.getOnlinePlayers().stream().forEach(player -> {
+                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+                                    event.doEvent(player);
+                                });
+                            }, 0, cooldown);
+                        }
                     } else {
-                        sendGlobalMessage(sender, "Random event will happen...");
-                        Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.plugin, () -> {
-                            Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                                Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
-                                event.doEvent(player);
-                            });
-                        }, 0, cooldown);
+                        sendGlobalMessage(sender, "Random cannot start");
                     }
                     break;
                 case "stop":

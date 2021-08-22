@@ -23,7 +23,7 @@ public class ConfigPlugin {
         config = YamlConfiguration.loadConfiguration(configFile);
     }
 
-    public static void get(String path){
-        config.get(path);
+    public static Object get(String path){
+        return config.get(path);
     }
 }
