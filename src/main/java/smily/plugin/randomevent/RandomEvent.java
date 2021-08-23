@@ -19,10 +19,6 @@ public final class RandomEvent extends JavaPlugin {
     public void onEnable() {
         saveDefaultConfig();
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, () ->
-                Bukkit.getOnlinePlayers().forEach(players ->
-                                lightingAnimation.normalLightingEventAnimation(players))
-        , 0, 200);
 
         getCommand("randomevent").setExecutor(new RandomEventCommand());
     }

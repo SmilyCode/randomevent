@@ -38,7 +38,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Event[] events = {
             new EffectEventAdapter(),
             new RandomMobsAdapter(),
-            new TntEventAdapter()
+            new TntEventAdapter(),
+            new LightingEventAdapter()
     };
 
     public static Integer cooldown;
@@ -83,9 +84,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                             sendGlobalMessage(sender, "Random event will happen...");
                             Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(), () -> {
                                 Bukkit.getOnlinePlayers().stream().forEach(player -> {
-//                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
-//                                    event.doEvent(player);
-                                    new LightingEventAdapter().doEvent(player);
+                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+                                    event.doEvent(player);
                                 });
                             }, 0, cooldown);
                         }
