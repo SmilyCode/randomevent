@@ -1,6 +1,8 @@
 package smily.plugin.randomevent.util;
 
 import org.springframework.context.annotation.Bean;
+import smily.plugin.randomevent.event.lighting.LightingAnimation;
+import smily.plugin.randomevent.event.lighting.LightingLogic;
 import smily.plugin.randomevent.event.mobs.MobsList;
 import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
 import smily.plugin.randomevent.event.tnt.NukeEvent;
@@ -57,5 +59,15 @@ public class AnnotationConfiguration {
     @Bean
     public NukeEvent getNukeEvent(){
         return new NukeEvent();
+    }
+
+    @Bean
+    public LightingLogic getLightingLogic(){
+        return new LightingLogic();
+    }
+
+    @Bean
+    public LightingAnimation getLightingAnimation(){
+        return new LightingAnimation();
     }
 }

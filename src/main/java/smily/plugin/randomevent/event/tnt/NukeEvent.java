@@ -1,9 +1,12 @@
 package smily.plugin.randomevent.event.tnt;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 
-public class NukeEvent extends TntEvent{
+public class NukeEvent{
+    @Autowired
+    TntEvent tntEvent;
+
     public void nukeEvent(Player player){
 
 
@@ -15,6 +18,6 @@ public class NukeEvent extends TntEvent{
     }
 
     public void spawnOnTopOfPlayer(Player p, double x, double y, double z){
-        p.getWorld().spawnEntity(p.getLocation().add(x, y, z), getTnt());
+        p.getWorld().spawnEntity(p.getLocation().add(x, y, z), tntEvent.getTnt());
     }
 }

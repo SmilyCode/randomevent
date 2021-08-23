@@ -23,4 +23,12 @@ public class Randomizer {
     public static Object randomListValue(@NonNull List list){
         return list.get(randomValue(list.size()));
     }
+
+    public static int randomBetweenValue(int num1, int num2){
+        if (random.nextBoolean()){
+            return num1;
+        } else {
+            return num2;
+        }
+    }
 }
