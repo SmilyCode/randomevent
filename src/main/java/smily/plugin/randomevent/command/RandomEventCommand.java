@@ -84,8 +84,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                             sendGlobalMessage(sender, "Random event will happen...");
                             Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(), () -> {
                                 Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
-                                    event.doEvent(player);
+//                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+//                                    event.doEvent(player);
                                 });
                             }, 0, cooldown);
                         }

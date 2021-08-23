@@ -9,6 +9,7 @@ public class NukeEvent{
 
     public void nukeEvent(Player player){
 
+        tntEvent.tntMessage(player, "Awas Nuke!");
 
         for (double a = -4; a<=4; a++){
             for (double b = -4; b<=4; b++){

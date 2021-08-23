@@ -2,6 +2,7 @@ package smily.plugin.randomevent.event.lighting;
 
 import com.google.common.annotations.Beta;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
@@ -68,6 +69,7 @@ public class LightingAnimation{
         Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(),() -> {
             if (atomicInteger.get() == howMany) {
             delayStrike(p, p.getLocation(), Randomizer.randomValue(1, 2));
+            lightningMessage(p,"Bzzt");
         }
         }, 0, 5);
 
@@ -103,6 +105,10 @@ public class LightingAnimation{
                 }
             }
         }
+    }
+
+    public void lightningMessage(Player p, String message){
+        p.sendMessage("[" + ChatColor.BLUE + "RandomThunder" + ChatColor.WHITE + "]" + " " + message);
     }
 
 

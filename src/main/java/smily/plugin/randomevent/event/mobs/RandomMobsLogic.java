@@ -51,7 +51,7 @@ public class RandomMobsLogic {
     // set a spawn entity message logic
     private void setSpawnEntityMessage(Player p, EntityType type, String message){
         if (mob.equals(type)){
-            p.sendMessage("[" + ChatColor.RED + "RandomMobs" + ChatColor.WHITE + "]" + " " + message);
+            p.sendMessage("[" + ChatColor.YELLOW + "RandomMobs" + ChatColor.WHITE + "]" + " " + message);
         }
     }
 
