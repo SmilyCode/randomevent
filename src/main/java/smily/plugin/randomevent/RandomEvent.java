@@ -10,6 +10,7 @@ import smily.plugin.randomevent.event.tnt.NukeEvent;
 import smily.plugin.randomevent.scoreboard.MainScoreboard;
 import smily.plugin.randomevent.scoreboard.ScoreboardLogic;
 import smily.plugin.randomevent.util.PluginContext;
+import smily.plugin.randomevent.util.PluginMeta;
 
 import java.util.Arrays;
 
@@ -20,6 +21,13 @@ public final class RandomEvent extends JavaPlugin {
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
+        PluginMeta.setStarted(Boolean.parseBoolean((String) ConfigPlugin.get("started")));
+
+        if (PluginMeta.isStarted()){
+
+        }
+
 
         mainScoreboard.createScoreboard();
         Bukkit.getOnlinePlayers().forEach(players -> players.setScoreboard(mainScoreboard.getScoreboard()));

@@ -1,33 +1,23 @@
 package smily.plugin.randomevent.command;
 
-import jdk.tools.jmod.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import smily.plugin.randomevent.ConfigPlugin;
-import smily.plugin.randomevent.event.Event;
-import smily.plugin.randomevent.event.effects.EffectEventAdapter;
-import smily.plugin.randomevent.event.lighting.LightingEventAdapter;
-import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
-import smily.plugin.randomevent.event.tnt.NukeEvent;
-import smily.plugin.randomevent.event.tnt.TntEvent;
-import smily.plugin.randomevent.event.tnt.TntEventAdapter;
 import smily.plugin.randomevent.event.util.EventErrorHandler;
-import smily.plugin.randomevent.scoreboard.MainScoreboard;
+import smily.plugin.randomevent.event.util.Messager;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
 import smily.plugin.randomevent.time.Time;
 import smily.plugin.randomevent.util.PluginContext;
-import smily.plugin.randomevent.util.Randomizer;
+import smily.plugin.randomevent.util.PluginMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class RandomEventCommand implements CommandExecutor, TabCompleter {
@@ -36,16 +26,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
     EventErrorHandler errorHandler = PluginContext.context.getBean(EventErrorHandler.class);
-    MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
 
-    Event[] events = {
-            new EffectEventAdapter(),
-            new RandomMobsAdapter(),
-            new TntEventAdapter(),
-            new LightingEventAdapter()
-    };
 
-    public static Integer cooldown;
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -55,28 +37,28 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     if (args[1] != null){
                         switch (args[2]) {
                             case "second":
-                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " second");
-                                cooldown = second.setTick(Integer.parseInt(args[1]));
+                                Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " second");
+                                PluginMeta.setCooldown(second.setTick(Integer.parseInt(args[1])))
                                 break;
                             case "minute":
-                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " minute");
-                                cooldown = minute.setTick(Integer.parseInt(args[1]));
+                                Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " minute");
+                                PluginMeta.setCooldown(minute.setTick(Integer.parseInt(args[1])))
                                 break;
                             case "tick":
-                                sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " tick");
-                                cooldown = tick.setTick(Integer.parseInt(args[1]));
+                                Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " tick");
+                                PluginMeta.setCooldown(tick.setTick(Integer.parseInt(args[1])))
                                 break;
                             default:
-                                sendGlobalMessage(sender, "Unit doesn't exist");
+                                Messager.sendGlobalMessage(sender, "Unit doesn't exist");
                         }
 
                         if (args[2] == null){
-                            sendGlobalMessage(sender, "Unit cannot be null");
+                            Messager.sendGlobalMessage(sender, "Unit cannot be null");
                             break;
                         }
 
                     } else {
-                        sendGlobalMessage(sender, "time cannot be null");
+                        Messager.sendGlobalMessage(sender, "time cannot be null");
                     }
                     break;
                 case "start":
@@ -84,31 +66,24 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         if (cooldown == null) {
                             cooldown = minute.setTick(1);
                         } else {
-                            sendGlobalMessage(sender, "Random event will happen...");
-                            mainScoreboard.createScoreboard();
-                            Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(), () -> {
-                                Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
-                                    event.doEvent(player);
-                                    player.setScoreboard(mainScoreboard.getScoreboard());
-                                });
-                            }, 0, cooldown);
+                            Messager.sendGlobalMessage(sender, "Random event will happen...");
+
                         }
                     } else {
-                        sendGlobalMessage(sender, "Random cannot start");
+                        Messager.sendGlobalMessage(sender, "Random cannot start");
                     }
                     break;
                 case "stop":
-                    sendGlobalMessage(sender, "Random event stop happen");
+                    Messager.sendGlobalMessage(sender, "Random event stop happen");
                     Bukkit.getScheduler().cancelTasks(PluginContext.getPlugin());
                     break;
 
                 case "reload":
                     ConfigPlugin.reload();
-                    sendGlobalMessage(sender, "Random Event config has reloaded");
+                    Messager.sendGlobalMessage(sender, "Random Event config has reloaded");
                     break;
                 default:
-                    sendGlobalMessage(sender, "not enough argument");
+                    Messager.sendGlobalMessage(sender, "not enough argument");
             }
         }
 
@@ -133,11 +108,5 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
         return arguments;
     }
 
-    private void sendGlobalMessage(CommandSender sender, String message){
-        if (sender instanceof Player){
-            sender.sendMessage(message);
-        } else {
-            System.out.println(message);
-        }
-    }
+
 }

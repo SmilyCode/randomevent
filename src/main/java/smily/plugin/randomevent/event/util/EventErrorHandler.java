@@ -19,21 +19,19 @@ public class EventErrorHandler {
     }
 
 
-    public boolean getAllError(CommandSender sender){
+    public boolean getAllError(){
         List<Boolean> error = new ArrayList<>();
         if (ifMaxLowerThanMin(randomMobLogicError.getMaxValue(), randomMobLogicError.getMinValue())){
-            if (sender instanceof Player){
-                sender.sendMessage(ChatColor.RED + "on Random Mobs Config Setting:");
-                sender.sendMessage(ChatColor.RED + "Max value cannot be lower than min value, fix it than do /randomevent reload");
-            } else {
-                System.err.println("on Random Mobs Config Setting:");
-                System.err.println("Max value cannot be lower than min value, fix it than do /randomevent reload");
-            }
+            Messager.sendGlobalMessageToAll(new String[]{
+                    ChatColor.RED + "on Random Mobs Config Setting:",
+                    ChatColor.RED + "Max value cannot be lower than min value, fix it than do /randomevent reload"
+            });
             return error.add(false);
         } else error.add(true);
 
 
         return error.stream().anyMatch(errors -> !errors);
     }
+
 
 }
