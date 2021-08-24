@@ -1,6 +1,9 @@
 package smily.plugin.randomevent.scoreboard;
 
+
 import org.bukkit.entity.Player;
+
+import smily.plugin.randomevent.ConfigPlugin;
 
 public class ScoreboardLogic {
     private Integer days;
@@ -30,6 +33,14 @@ public class ScoreboardLogic {
         }
         System.out.println(days);
 
+    }
+
+    public void getDaysFromConfig(){
+        days = (Integer) ConfigPlugin.get("day");
+    }
+
+    public void storeDaysToConfig(){
+        ConfigPlugin.set("day", days);
     }
 
 

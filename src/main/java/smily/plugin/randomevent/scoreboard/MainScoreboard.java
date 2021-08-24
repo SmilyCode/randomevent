@@ -2,6 +2,7 @@ package smily.plugin.randomevent.scoreboard;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -19,14 +20,19 @@ public class MainScoreboard {
 
         assert manager != null;
         scoreboard = manager.getNewScoreboard();
-        objective = scoreboard.registerNewObjective("Days", "dummy", "Hari");
+        objective = scoreboard.registerNewObjective("Days", "dummy", ChatColor.AQUA + "Hari");
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-        daysScore = objective.getScore(ChatColor.RED + "ke- ");
-        daysScore.setScore(scoreboardLogic.getDays());
     }
 
     public Scoreboard getScoreboard() {
         return scoreboard;
     }
+
+    public void updateScore(Player p){
+        scoreboardLogic.dayCycle(p);
+
+        daysScore = objective.getScore(ChatColor.WHITE + "ke- ");
+        daysScore.setScore(scoreboardLogic.getDays());
+    }
+
 }

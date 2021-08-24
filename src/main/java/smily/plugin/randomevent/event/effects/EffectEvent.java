@@ -2,7 +2,6 @@ package smily.plugin.randomevent.event.effects;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;

@@ -1,8 +1,6 @@
-import com.google.common.annotations.VisibleForTesting;
 import org.junit.jupiter.api.Test;
 import smily.plugin.randomevent.util.Randomizer;
 
-import java.util.Random;
 
 public class TestCode {
 

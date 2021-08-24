@@ -1,6 +1,5 @@
 package smily.plugin.randomevent;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import smily.plugin.randomevent.command.RandomEventCommand;
 import smily.plugin.randomevent.event.StartRandomEvent;
