@@ -7,17 +7,22 @@ import smily.plugin.randomevent.command.RandomEventCommand;
 import smily.plugin.randomevent.event.lighting.LightingAnimation;
 import smily.plugin.randomevent.event.lighting.LightingLogic;
 import smily.plugin.randomevent.event.tnt.NukeEvent;
+import smily.plugin.randomevent.scoreboard.MainScoreboard;
+import smily.plugin.randomevent.scoreboard.ScoreboardLogic;
 import smily.plugin.randomevent.util.PluginContext;
 
 import java.util.Arrays;
 
 public final class RandomEvent extends JavaPlugin {
 
-   LightingAnimation lightingAnimation = PluginContext.context.getBean(LightingAnimation.class);
-
+    ScoreboardLogic scoreboardLogic = PluginContext.context.getBean(ScoreboardLogic.class);
+    MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
     @Override
     public void onEnable() {
         saveDefaultConfig();
+
+        mainScoreboard.createScoreboard();
+        Bukkit.getOnlinePlayers().forEach(players -> players.setScoreboard(mainScoreboard.getScoreboard()));
 
 
         getCommand("randomevent").setExecutor(new RandomEventCommand());

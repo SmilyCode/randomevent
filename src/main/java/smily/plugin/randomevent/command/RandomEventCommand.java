@@ -1,5 +1,6 @@
 package smily.plugin.randomevent.command;
 
+import jdk.tools.jmod.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,6 +18,7 @@ import smily.plugin.randomevent.event.tnt.NukeEvent;
 import smily.plugin.randomevent.event.tnt.TntEvent;
 import smily.plugin.randomevent.event.tnt.TntEventAdapter;
 import smily.plugin.randomevent.event.util.EventErrorHandler;
+import smily.plugin.randomevent.scoreboard.MainScoreboard;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -34,6 +36,7 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
     EventErrorHandler errorHandler = PluginContext.context.getBean(EventErrorHandler.class);
+    MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
 
     Event[] events = {
             new EffectEventAdapter(),
@@ -82,10 +85,12 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                             cooldown = minute.setTick(1);
                         } else {
                             sendGlobalMessage(sender, "Random event will happen...");
+                            mainScoreboard.createScoreboard();
                             Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(), () -> {
                                 Bukkit.getOnlinePlayers().stream().forEach(player -> {
-//                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
-//                                    event.doEvent(player);
+                                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+                                    event.doEvent(player);
+                                    player.setScoreboard(mainScoreboard.getScoreboard());
                                 });
                             }, 0, cooldown);
                         }
