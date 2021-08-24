@@ -1,11 +1,8 @@
 package smily.plugin.randomevent.event.util;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
-import smily.plugin.randomevent.util.PluginContext;
 
 import java.util.ArrayList;
 import java.util.List;

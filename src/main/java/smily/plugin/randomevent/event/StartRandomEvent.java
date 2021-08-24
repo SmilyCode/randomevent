@@ -1,6 +1,9 @@
 package smily.plugin.randomevent.event;
 
 import org.bukkit.Bukkit;
+import org.bukkit.plugin.Plugin;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
 import smily.plugin.randomevent.event.lighting.LightingEventAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
@@ -16,7 +19,10 @@ import java.util.Arrays;
 public class StartRandomEvent {
 
     boolean errorHandlers;
+
     EventErrorHandler eventErrorHandler = PluginContext.context.getBean(EventErrorHandler.class);
+    
+    MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
 
     Event[] events = {
             new EffectEventAdapter(),
@@ -25,21 +31,23 @@ public class StartRandomEvent {
             new LightingEventAdapter()
     };
 
-    MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
-
-    public StartRandomEvent() {
+    public void startEvent(){
         errorHandlers = eventErrorHandler.getAllError();
 
         if (!errorHandlers) {
+            
+            mainScoreboard.createScoreboard();
+            Bukkit.getOnlinePlayers().stream().forEach(
+                player -> player.setScoreboard(mainScoreboard.getScoreboard()));
+            
             Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(), () -> {
                 Bukkit.getOnlinePlayers().stream().forEach(player -> {
                     Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
                     event.doEvent(player);
-                    player.setScoreboard(mainScoreboard.getScoreboard());
                 });
             }, 0, PluginMeta.getCooldown());
         } else {
-
+            
         }
     }
 }

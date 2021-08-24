@@ -1,6 +1,8 @@
 package smily.plugin.randomevent.util;
 
 import org.springframework.context.annotation.Bean;
+
+import smily.plugin.randomevent.event.StartRandomEvent;
 import smily.plugin.randomevent.event.lighting.LightingAnimation;
 import smily.plugin.randomevent.event.lighting.LightingLogic;
 import smily.plugin.randomevent.event.mobs.MobsList;
@@ -82,4 +84,5 @@ public class AnnotationConfiguration {
     public MainScoreboard getMainScoreboard(){
         return new MainScoreboard();
     }
+
 }

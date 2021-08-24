@@ -8,6 +8,7 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import smily.plugin.randomevent.ConfigPlugin;
+import smily.plugin.randomevent.event.StartRandomEvent;
 import smily.plugin.randomevent.event.util.EventErrorHandler;
 import smily.plugin.randomevent.event.util.Messager;
 import smily.plugin.randomevent.time.Minute;
@@ -25,8 +26,6 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time second = PluginContext.context.getBean(Second.class);
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
-    EventErrorHandler errorHandler = PluginContext.context.getBean(EventErrorHandler.class);
-
 
 
     @Override
@@ -38,15 +37,15 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         switch (args[2]) {
                             case "second":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " second");
-                                PluginMeta.setCooldown(second.setTick(Integer.parseInt(args[1])))
+                                PluginMeta.setCooldown(second.setTick(Integer.parseInt(args[1])));
                                 break;
                             case "minute":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " minute");
-                                PluginMeta.setCooldown(minute.setTick(Integer.parseInt(args[1])))
+                                PluginMeta.setCooldown(minute.setTick(Integer.parseInt(args[1])));
                                 break;
                             case "tick":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " tick");
-                                PluginMeta.setCooldown(tick.setTick(Integer.parseInt(args[1])))
+                                PluginMeta.setCooldown(tick.setTick(Integer.parseInt(args[1])));
                                 break;
                             default:
                                 Messager.sendGlobalMessage(sender, "Unit doesn't exist");
@@ -62,16 +61,22 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     }
                     break;
                 case "start":
-                    if (!errorHandler.getAllError(sender)) {
-                        if (cooldown == null) {
-                            cooldown = minute.setTick(1);
-                        } else {
-                            Messager.sendGlobalMessage(sender, "Random event will happen...");
+                if (!PluginMeta.isStarted()){
+                    
+                    if (PluginMeta.getCooldown() == null) {
+                    
+                        PluginMeta.setCooldown(minute.setTick(1));
 
-                        }
-                    } else {
-                        Messager.sendGlobalMessage(sender, "Random cannot start");
                     }
+                    
+                    Messager.sendGlobalMessage(sender, "Random event will happen...");
+                    new StartRandomEvent().startEvent();
+
+                } else {
+                    
+                    Messager.sendGlobalMessage(sender, "Game is already started.");
+                
+                }
                     break;
                 case "stop":
                     Messager.sendGlobalMessage(sender, "Random event stop happen");
