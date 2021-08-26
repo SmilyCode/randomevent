@@ -1,28 +1,29 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.Map;
+
 import org.junit.jupiter.api.Test;
+import org.yaml.snakeyaml.Yaml;
+
 import smily.plugin.randomevent.util.Randomizer;
 
 
 public class TestCode {
 
+    InputStream inputStream ;
+
     @Test
     public void randomDouble(){
-        int safeAreaXPlus = 2;
-        int safeAreaXMinus = -2;
-        int safeAreaYPlus = 2;
-        int safeAreaYMinus = -2;
-
-        int randomX = Randomizer.randomValue(-10, 10);
-        int randomY = Randomizer.randomValue(-10, 10);
-
-        if (randomX < safeAreaXPlus && randomX > safeAreaXMinus){
-            randomX = Randomizer.randomBetweenValue(safeAreaXPlus, safeAreaXMinus);
+        try {
+            inputStream = new FileInputStream("src/test/resources/test.yml");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
-        if (randomY < safeAreaYPlus && randomY > safeAreaYMinus){
-            randomY = Randomizer.randomBetweenValue(safeAreaYPlus, safeAreaYMinus);
-        }
-
-        System.out.println(randomX + " " + randomY);
+        Yaml yaml = new Yaml();
+        Map<String, Object> data = yaml.load(inputStream);
+        System.out.println(data); 
     }
 
 }

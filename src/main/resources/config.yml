@@ -1,9 +1,0 @@
-random_mobs:
-  random_value:
-    max: 10
-    min: 0
-
-
-started: true
-day: 0
-cooldown: 1

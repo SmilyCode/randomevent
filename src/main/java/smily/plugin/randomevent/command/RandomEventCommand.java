@@ -7,7 +7,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import smily.plugin.randomevent.ConfigPlugin;
+
+import net.md_5.bungee.api.ChatColor;
+import smily.plugin.randomevent.config.PluginConfig;
+import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.StartRandomEvent;
 import smily.plugin.randomevent.event.util.Messager;
 import smily.plugin.randomevent.time.Minute;
@@ -15,8 +18,8 @@ import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
 import smily.plugin.randomevent.time.Time;
 import smily.plugin.randomevent.util.PluginContext;
-import smily.plugin.randomevent.util.PluginMeta;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time second = PluginContext.context.getBean(Second.class);
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
+    YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
+    PluginConfig pluginConfig = PluginContext.context.getBean(PluginConfig.class);
 
 
     @Override
@@ -36,15 +41,15 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         switch (args[2]) {
                             case "second":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " second");
-                                PluginMeta.setCooldown(second.setTick(Integer.parseInt(args[1])));
+                                yamlVariable.setCooldown(second.setTick(Integer.parseInt(args[1])));
                                 break;
                             case "minute":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " minute");
-                                PluginMeta.setCooldown(minute.setTick(Integer.parseInt(args[1])));
+                                yamlVariable.setCooldown(minute.setTick(Integer.parseInt(args[1])));
                                 break;
                             case "tick":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " tick");
-                                PluginMeta.setCooldown(tick.setTick(Integer.parseInt(args[1])));
+                                yamlVariable.setCooldown(tick.setTick(Integer.parseInt(args[1])));
                                 break;
                             default:
                                 Messager.sendGlobalMessage(sender, "Unit doesn't exist");
@@ -59,33 +64,46 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         Messager.sendGlobalMessage(sender, "time cannot be null");
                     }
                     break;
+
                 case "start":
-                if (!PluginMeta.isStarted()){
+                if (!yamlVariable.getStarted()){
                     
-                    if (PluginMeta.getCooldown() == null) {
+                    if (yamlVariable.getStarted() == null) {
                     
-                        PluginMeta.setCooldown(minute.setTick(1));
+                        yamlVariable.setCooldown(minute.setTick(1));
 
                     }
                     
                     Messager.sendGlobalMessage(sender, "Random event will happen...");
                     new StartRandomEvent().startEvent();
-
+                    yamlVariable.setStarted(true);
                 } else {
                     
                     Messager.sendGlobalMessage(sender, "Game is already started.");
                 
                 }
                     break;
-                case "stop":
-                    Messager.sendGlobalMessage(sender, "Random event stop happen");
-                    Bukkit.getScheduler().cancelTasks(PluginContext.getPlugin());
+                
+                    case "stop":
+                    
+                    if (yamlVariable.getStarted()){
+                        Messager.sendGlobalMessage(sender, "Random event stop happen");
+                        Bukkit.getScheduler().cancelTasks(PluginContext.getPlugin());
+                        yamlVariable.setStarted(false);
+                    } else {
+                        Messager.sendGlobalMessage(sender, ChatColor.RED + "No Game is Running");
+                    }
                     break;
 
                 case "reload":
-                    ConfigPlugin.reload();
+                    try {
+                        pluginConfig.reload();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
                     Messager.sendGlobalMessage(sender, "Random Event config has reloaded");
                     break;
+                    
                 default:
                     Messager.sendGlobalMessage(sender, "not enough argument");
             }

@@ -2,12 +2,15 @@ package smily.plugin.randomevent.scoreboard;
 
 
 import org.bukkit.entity.Player;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import smily.plugin.randomevent.ConfigPlugin;
+import smily.plugin.randomevent.config.YamlVariable;
 
 public class ScoreboardLogic {
     private Integer days;
     private Integer timeSensor;
+    @Autowired
+    YamlVariable yamlVariable;
 
     public Integer getDays() {
         if (days == null){
@@ -31,16 +34,17 @@ public class ScoreboardLogic {
         if (timeSensor == 1){
             days += 1;
         }
-        System.out.println(days);
 
     }
 
+    // get day score from config
     public void getDaysFromConfig(){
-        days = (Integer) ConfigPlugin.get("day");
+        days = (Integer) yamlVariable.getDay();
     }
 
+    // store day to config
     public void storeDaysToConfig(){
-        ConfigPlugin.set("day", days);
+        yamlVariable.setDay(days);
     }
 
 

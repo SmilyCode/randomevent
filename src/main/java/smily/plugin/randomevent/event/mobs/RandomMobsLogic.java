@@ -5,7 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
-import smily.plugin.randomevent.ConfigPlugin;
+
+import smily.plugin.randomevent.config.PluginConfig;
 import smily.plugin.randomevent.util.Randomizer;
 
 public class RandomMobsLogic {
@@ -68,14 +69,14 @@ public class RandomMobsLogic {
     }
 
     private int getValueFromConfig(){
-        maxValue = (Integer) ConfigPlugin.get("random_mobs.random_value.max");
-        minValue = (Integer) ConfigPlugin.get("random_mobs.random_value.min");
+        maxValue = 5;
+        minValue = 1;
         return Randomizer.randomValue(minValue, maxValue);
     }
 
     public Integer getMaxValue() {
         if (maxValue == null){
-            maxValue = (Integer) ConfigPlugin.get("random_mobs.random_value.max");
+            maxValue = 5;
         }
 
         return maxValue;
@@ -83,7 +84,7 @@ public class RandomMobsLogic {
 
     public Integer getMinValue() {
         if (minValue == null){
-            minValue = (Integer) ConfigPlugin.get("random_mobs.random_value.min");
+            minValue = 5;
         }
 
         return minValue;
