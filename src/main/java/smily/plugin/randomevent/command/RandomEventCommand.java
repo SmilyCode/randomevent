@@ -95,15 +95,6 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     }
                     break;
 
-                case "reload":
-                    try {
-                        pluginConfig.reload();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    Messager.sendGlobalMessage(sender, "Random Event config has reloaded");
-                    break;
-                    
                 default:
                     Messager.sendGlobalMessage(sender, "not enough argument");
             }

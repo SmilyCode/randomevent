@@ -6,7 +6,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import smily.plugin.randomevent.config.PluginConfig;
 import smily.plugin.randomevent.util.Randomizer;
 
 public class RandomMobsLogic {

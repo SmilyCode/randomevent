@@ -1,6 +1,7 @@
 package smily.plugin.randomevent;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,16 +20,24 @@ public final class RandomEvent extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        
         
         try {
-            pluginConfig.creatingConfig();
+            pluginConfig.createDefaultConfig();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
         try {
-            yamlVariable.setStarted((Boolean) pluginConfig.get().getStarted());
+            pluginConfig.checkAnyYamlEmpty();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+
+        try {
+            yamlVariable.setStarted(pluginConfig.get().getStarted());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -43,7 +52,7 @@ public final class RandomEvent extends JavaPlugin {
     @Override
     public void onDisable(){
         try {
-            pluginConfig.writeAll();
+            pluginConfig.overideDefault();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

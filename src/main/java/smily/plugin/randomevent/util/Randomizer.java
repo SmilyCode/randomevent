@@ -20,7 +20,7 @@ public class Randomizer {
         return random.nextDouble();
     }
 
-    public static Object randomListValue(@NonNull List list){
+    public static Object randomListValue(@NonNull List<Object> list){
         return list.get(randomValue(list.size()));
     }
 

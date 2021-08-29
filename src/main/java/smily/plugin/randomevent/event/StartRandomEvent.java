@@ -1,7 +1,6 @@
 package smily.plugin.randomevent.event;
 
 import org.bukkit.Bukkit;
-import org.yaml.snakeyaml.Yaml;
 
 import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
