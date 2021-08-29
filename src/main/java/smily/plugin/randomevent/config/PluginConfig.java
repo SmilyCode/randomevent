@@ -15,7 +15,6 @@ import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
-import org.yaml.snakeyaml.events.Event;
 
 import smily.plugin.randomevent.util.PluginContext;
 
@@ -95,13 +94,11 @@ public class PluginConfig {
 
     // get spesific value from yml file
     public YamlVariable get() throws FileNotFoundException{
-        if (inputStream == null){
-            getInputStream();
-        }
+        getInputStream();
 
         yaml = new Yaml(new CustomClassLoaderConstructor(YamlVariable.class.getClassLoader()));
 
-        return yamlVariable = yaml.loadAs(inputStream, yamlVariable.getClass());
+        return yamlVariable = yaml.load(inputStream);
     }
 
 
@@ -139,10 +136,10 @@ public class PluginConfig {
         reader.readLine();
 
         Map<String, Object> map = yaml.load(reader);
-
+        System.out.println(map);
         if (map.values().stream().anyMatch(value -> value == null)){
 
-            System.err.println("Error: an or a value is empty");
+            System.err.println("Error: a value is empty");
             try {
                 overideDefault();
                 System.err.println("Recreating file config");

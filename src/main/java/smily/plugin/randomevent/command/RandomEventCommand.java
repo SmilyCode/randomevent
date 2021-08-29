@@ -19,7 +19,6 @@ import smily.plugin.randomevent.time.Tick;
 import smily.plugin.randomevent.time.Time;
 import smily.plugin.randomevent.util.PluginContext;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 

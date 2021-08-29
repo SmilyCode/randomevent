@@ -30,11 +30,9 @@ public final class RandomEvent extends JavaPlugin {
 
         try {
             pluginConfig.checkAnyYamlEmpty();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
-
 
         try {
             yamlVariable.setStarted(pluginConfig.get().getStarted());
@@ -52,7 +50,7 @@ public final class RandomEvent extends JavaPlugin {
     @Override
     public void onDisable(){
         try {
-            pluginConfig.overideDefault();
+            pluginConfig.override();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
