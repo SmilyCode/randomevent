@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 
 import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
-import smily.plugin.randomevent.event.lighting.LightingEventAdapter;
+import smily.plugin.randomevent.event.lightning.LightningEventAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
 import smily.plugin.randomevent.event.pt.PtRandomizerEvent;
 import smily.plugin.randomevent.event.tnt.TntEventAdapter;
@@ -29,7 +29,7 @@ public class StartRandomEvent {
             new EffectEventAdapter(),
             new RandomMobsAdapter(),
             new TntEventAdapter(),
-            new LightingEventAdapter(),
+            new LightningEventAdapter(),
             new PtRandomizerEvent()
     };
 
@@ -53,7 +53,7 @@ public class StartRandomEvent {
                     event.doEvent(player);
                 });
             }, 0, yamlVariable.getCooldown());
-            
+
         } else {
             
         }

@@ -1,4 +1,4 @@
-package smily.plugin.randomevent.event.lighting;
+package smily.plugin.randomevent.event.lightning;
 
 import com.google.common.annotations.Beta;
 import org.bukkit.Bukkit;
@@ -14,20 +14,20 @@ import smily.plugin.randomevent.util.Randomizer;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class LightingAnimation{
+public class LightningAnimation{
 
     @Autowired
     Second second;
 
     @Autowired
-    LightingLogic lightingLogic;
+    LightningLogic lightningLogic;
 
     AtomicInteger atomicInteger;
 
     public void delayStrike(Player p, Location loc, int delay){
         atomicInteger = new AtomicInteger();
         Bukkit.getScheduler().scheduleSyncDelayedTask(PluginContext.getPlugin(), () -> {
-            lightingLogic.summonLighting(p, loc);
+            lightningLogic.summonLighting(p, loc);
             atomicInteger.getAndIncrement();
         }, second.setTick(delay));
     }
@@ -77,12 +77,12 @@ public class LightingAnimation{
 
     @Beta
     public void lightingEventOnMobs(Player p){
-        if (!lightingLogic.getNearbyMobs(p).isEmpty()){
-        int howManyMobs =  lightingLogic.getNearbyMobs(p).size();
+        if (!lightningLogic.getNearbyMobs(p).isEmpty()){
+        int howManyMobs =  lightningLogic.getNearbyMobs(p).size();
 
         for (int i = 0; i <= howManyMobs; i++) {
 
-            delayStrike(p, lightingLogic.getNearbyMobs(p).get(i).getLocation(), Randomizer.randomValue(1, 3));
+            delayStrike(p, lightningLogic.getNearbyMobs(p).get(i).getLocation(), Randomizer.randomValue(1, 3));
 
             if (i == howManyMobs) {
                 if (howManyMobs <= 3) {

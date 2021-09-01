@@ -1,14 +1,14 @@
-package smily.plugin.randomevent.event.lighting;
+package smily.plugin.randomevent.event.lightning;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import smily.plugin.randomevent.event.Event;
 import smily.plugin.randomevent.util.PluginContext;
 
-public class LightingEventAdapter implements Event {
+public class LightningEventAdapter implements Event {
 
-    LightingLogic lightingLogic = PluginContext.context.getBean(LightingLogic.class);
-    LightingAnimation lightingAnimation = PluginContext.context.getBean(LightingAnimation.class);
+    LightningLogic lightingLogic = PluginContext.context.getBean(LightningLogic.class);
+    LightningAnimation lightingAnimation = PluginContext.context.getBean(LightningAnimation.class);
 
     @Override
     public void doEvent(Player player) {

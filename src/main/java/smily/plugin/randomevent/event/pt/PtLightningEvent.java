@@ -11,7 +11,8 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
-import smily.plugin.randomevent.event.lighting.LightingLogic;
+
+import smily.plugin.randomevent.event.lightning.LightningLogic;
 import smily.plugin.randomevent.util.PluginContext;
 
 public final class PtLightningEvent implements PtEvents, Timer, Listener{
@@ -20,7 +21,7 @@ public final class PtLightningEvent implements PtEvents, Timer, Listener{
     private Player player;
     @NotNull
     private Location strikelocation;
-    private LightingLogic lightningLogic = PluginContext.context.getBean(LightingLogic.class);
+    private LightningLogic lightningLogic = PluginContext.context.getBean(LightningLogic.class);
     private final int maxDistance = 40;
     private final Plugin plugin = PluginContext.getPlugin();
     private int duration;

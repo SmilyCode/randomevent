@@ -1,4 +1,4 @@
-package smily.plugin.randomevent.event.lighting;
+package smily.plugin.randomevent.event.lightning;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class LightingLogic {
+public class LightningLogic {
 
     public void summonLighting(Player p, Location location){
         p.getWorld().strikeLightning(location);
