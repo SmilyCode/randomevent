@@ -44,6 +44,7 @@ public final class RandomEvent extends JavaPlugin {
             new StartRandomEvent();
         }
 
+
         getCommand("randomevent").setExecutor(new RandomEventCommand());
     }
 

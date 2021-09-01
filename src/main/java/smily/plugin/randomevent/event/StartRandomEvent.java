@@ -6,6 +6,7 @@ import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
 import smily.plugin.randomevent.event.lighting.LightingEventAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
+import smily.plugin.randomevent.event.pt.PtRandomizerEvent;
 import smily.plugin.randomevent.event.tnt.TntEventAdapter;
 import smily.plugin.randomevent.event.util.EventErrorHandler;
 import smily.plugin.randomevent.scoreboard.MainScoreboard;
@@ -17,18 +18,19 @@ import java.util.Arrays;
 
 public class StartRandomEvent {
 
-    boolean errorHandlers;
+    private boolean errorHandlers;
 
-    EventErrorHandler eventErrorHandler = PluginContext.context.getBean(EventErrorHandler.class);
-    MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
-    ScoreboardLogic scoreboardLogic = PluginContext.context.getBean(ScoreboardLogic.class);
-    YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
+    private final EventErrorHandler eventErrorHandler = PluginContext.context.getBean(EventErrorHandler.class);
+    private final MainScoreboard mainScoreboard = PluginContext.context.getBean(MainScoreboard.class);
+    private final ScoreboardLogic scoreboardLogic = PluginContext.context.getBean(ScoreboardLogic.class);
+    private final YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
 
     Event[] events = {
             new EffectEventAdapter(),
             new RandomMobsAdapter(),
             new TntEventAdapter(),
-            new LightingEventAdapter()
+            new LightingEventAdapter(),
+            new PtRandomizerEvent()
     };
 
     public void startEvent(){
@@ -38,7 +40,6 @@ public class StartRandomEvent {
             
             scoreboardLogic.getDaysFromConfig();
             mainScoreboard.createScoreboard();
-            
 
             Bukkit.getOnlinePlayers().stream().forEach( 
                 player -> {
@@ -52,9 +53,7 @@ public class StartRandomEvent {
                     event.doEvent(player);
                 });
             }, 0, yamlVariable.getCooldown());
-
             
-
         } else {
             
         }
