@@ -1,8 +1,8 @@
 
 public class YamlVariable{
-    private Integer cooldown;
-    private Boolean started;
-    private Integer day;
+    public Integer cooldown;
+    public Boolean started;
+    public Integer day;
 
     public Boolean getStarted() {
         return started;

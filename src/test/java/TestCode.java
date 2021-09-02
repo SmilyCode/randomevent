@@ -1,21 +1,19 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Map;
+import java.util.Arrays;
 
 
 import org.junit.jupiter.api.Test;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.CustomClassLoaderConstructor;
 
 
 public class TestCode {
     private Yaml yaml = new Yaml();
-    // private YamlVariable yamlVariable = new YamlVariable();
+    private YamlVariable yamlVariable = new YamlVariable();
     private File fileConfig;
     private InputStream inputStream;
     // private PrintWriter writer;
@@ -32,14 +30,26 @@ public class TestCode {
             getInputStream();
         }
 
-        Reader read = new InputStreamReader(inputStream);
-        BufferedReader reader = new BufferedReader(read);
+        Class<YamlVariable> yamlClass = YamlVariable.class;
+        yaml = new Yaml(new CustomClassLoaderConstructor(YamlVariable.class.getClassLoader()));
+        yamlVariable = yaml.load(inputStream);
+        
+        Arrays.stream(yamlClass.getFields()).forEach(field -> {
 
-        reader.readLine();
 
-        Map<String, Object> map = yaml.load(reader);
-        System.out.println(map);
-        System.out.println(map.values().stream().anyMatch(value -> value == null));
+            try {
+                if (field.get(yamlVariable) == null){
+                    System.err.println("cannot be null");
+                }
+
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+
+        });
     }
 
     public File getFileConfig() {
@@ -51,6 +61,13 @@ public class TestCode {
             getFileConfig();
         }
         return inputStream = new FileInputStream(fileConfig);
+    }
+
+    public YamlVariable get() throws FileNotFoundException{
+        getInputStream();
+
+
+        return yamlVariable = yaml.load(inputStream);
     }
 
 }

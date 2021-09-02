@@ -1,4 +1,4 @@
-!!smily.plugin.randomevent.config.YamlVariable
-cooldown: null
+# !!YamlVariable
+cooldown: 1
 day: 1
 started: false
