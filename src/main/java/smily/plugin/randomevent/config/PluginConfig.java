@@ -119,7 +119,7 @@ public class PluginConfig {
         yamlVariable.setDay(1);
 
         PtEventConfigVariable ptEventVariable = new PtEventConfigVariable();
-        ptEventVariable.setPtLightningCooldown(30);
+        ptEventVariable.setPtLightningDuration(30);
 
         yamlVariable.setPt_event(ptEventVariable);
     }
