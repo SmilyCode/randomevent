@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.lightning.LightningLogic;
+import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.util.PluginContext;
 
 public final class PtLightningEvent implements PtEvents, Timer, Listener{
@@ -21,21 +22,21 @@ public final class PtLightningEvent implements PtEvents, Timer, Listener{
     @NotNull
     private Player player;
     @NotNull
+    private int duration;
+    @NotNull
+    private boolean eventSwitch;
     private Location strikelocation;
     private LightningLogic lightningLogic = PluginContext.context.getBean(LightningLogic.class);
     private final int maxDistance = 40;
     private final Plugin plugin = PluginContext.getPlugin();
-    private int duration;
-    @NotNull
-    private boolean eventSwitch;
     private final YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
-
+    private final Second second = PluginContext.context.getBean(Second.class);
 
     
     PtLightningEvent(Player player){
         this.player = player;
         this.strikelocation = player.getTargetBlockExact(maxDistance).getLocation();
-        this.duration = yamlVariable.getPt_event().getPtLightningDuration();
+        this.duration = second.setTick(yamlVariable.getPt_event().getPtLightningDuration());
     }
 
     public void strikeLightning(){
