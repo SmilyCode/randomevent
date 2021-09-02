@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.plugin.Plugin;
 import org.jetbrains.annotations.NotNull;
 
+import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.lightning.LightningLogic;
 import smily.plugin.randomevent.util.PluginContext;
 
@@ -27,12 +28,14 @@ public final class PtLightningEvent implements PtEvents, Timer, Listener{
     private int duration;
     @NotNull
     private boolean eventSwitch;
+    private final YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
 
 
     
     PtLightningEvent(Player player){
         this.player = player;
         this.strikelocation = player.getTargetBlockExact(maxDistance).getLocation();
+        this.duration = yamlVariable.getPt_event().getPtLightningDuration();
     }
 
     public void strikeLightning(){
