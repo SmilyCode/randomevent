@@ -1,14 +1,14 @@
 package smily.plugin.randomevent.config;
 
 public class PtEventConfigVariable{
-    private Integer ptLightningCooldown;
+    private Integer pt_lightning_cooldown;
 
     public Integer getPtLightningCooldown() {
-        return ptLightningCooldown;
+        return pt_lightning_cooldown;
     }
 
-    public void setPtLightningCooldown(Integer ptLightningCooldown) {
-        this.ptLightningCooldown = ptLightningCooldown;
+    public void setPtLightningCooldown(Integer cooldown) {
+        this.pt_lightning_cooldown = cooldown;
     }
     
 }

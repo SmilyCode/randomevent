@@ -1,7 +1,5 @@
 package smily.plugin.randomevent.config;
 
-import smily.plugin.randomevent.event.pt.PtLightningEvent;
-
 public class YamlVariable{
     private Integer cooldown;
     private Boolean started;
