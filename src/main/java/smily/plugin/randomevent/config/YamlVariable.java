@@ -1,12 +1,23 @@
 package smily.plugin.randomevent.config;
 
+import smily.plugin.randomevent.event.pt.PtLightningEvent;
+
 public class YamlVariable{
     private Integer cooldown;
     private Boolean started;
     private Integer day;
+    private PtEventConfigVariable pt_event;
 
     public Boolean getStarted() {
         return started;
+    }
+
+    public PtEventConfigVariable getPt_event() {
+        return pt_event;
+    }
+
+    public void setPt_event(PtEventConfigVariable pt_event) {
+        this.pt_event = pt_event;
     }
 
     public Integer getDay() {

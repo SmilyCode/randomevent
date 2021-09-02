@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Bean;
 
 import smily.plugin.randomevent.config.PluginConfig;
 import smily.plugin.randomevent.config.YamlVariable;
-import smily.plugin.randomevent.event.lighting.LightingAnimation;
-import smily.plugin.randomevent.event.lighting.LightingLogic;
+import smily.plugin.randomevent.event.lightning.LightningAnimation;
+import smily.plugin.randomevent.event.lightning.LightningLogic;
 import smily.plugin.randomevent.event.mobs.MobsList;
 import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
 import smily.plugin.randomevent.event.tnt.NukeEvent;
@@ -67,13 +67,13 @@ public class AnnotationConfiguration {
     }
 
     @Bean
-    public LightingLogic getLightingLogic(){
-        return new LightingLogic();
+    public LightningLogic getLightingLogic(){
+        return new LightningLogic();
     }
 
     @Bean
-    public LightingAnimation getLightingAnimation(){
-        return new LightingAnimation();
+    public LightningAnimation getLightingAnimation(){
+        return new LightningAnimation();
     }
 
     @Bean

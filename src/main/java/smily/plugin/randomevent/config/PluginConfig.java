@@ -117,6 +117,11 @@ public class PluginConfig {
         yamlVariable.setStarted(false);
         yamlVariable.setCooldown(1);
         yamlVariable.setDay(1);
+
+        PtEventConfigVariable ptEventVariable = new PtEventConfigVariable();
+        ptEventVariable.setPtLightningCooldown(30);
+
+        yamlVariable.setPt_event(ptEventVariable);
     }
 
     // check if any value is empty in config file
