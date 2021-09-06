@@ -11,8 +11,6 @@ import smily.plugin.randomevent.event.mobs.RandomMobsLogic;
 import smily.plugin.randomevent.event.tnt.NukeEvent;
 import smily.plugin.randomevent.event.tnt.TntEvent;
 import smily.plugin.randomevent.event.util.EventErrorHandler;
-import smily.plugin.randomevent.scoreboard.MainScoreboard;
-import smily.plugin.randomevent.scoreboard.ScoreboardLogic;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
 import smily.plugin.randomevent.time.Tick;
@@ -74,16 +72,6 @@ public class AnnotationConfiguration {
     @Bean
     public LightningAnimation getLightingAnimation(){
         return new LightningAnimation();
-    }
-
-    @Bean
-    public ScoreboardLogic getScoreboardLogic(){
-        return new ScoreboardLogic();
-    }
-
-    @Bean
-    public MainScoreboard getMainScoreboard(){
-        return new MainScoreboard();
     }
 
     @Bean

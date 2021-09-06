@@ -1,6 +1,3 @@
-package smily.plugin.randomevent.config;
-
-
 public class PtEventConfigVariable{
     public Integer pt_lightning_duration;
 

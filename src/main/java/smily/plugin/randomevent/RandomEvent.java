@@ -9,12 +9,10 @@ import smily.plugin.randomevent.command.RandomEventCommand;
 import smily.plugin.randomevent.config.PluginConfig;
 import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.StartRandomEvent;
-import smily.plugin.randomevent.scoreboard.ScoreboardLogic;
 import smily.plugin.randomevent.util.PluginContext;
 
 public final class RandomEvent extends JavaPlugin {
 
-    ScoreboardLogic scoreboardLogic = PluginContext.context.getBean(ScoreboardLogic.class);
     PluginConfig pluginConfig = PluginContext.context.getBean(PluginConfig.class);
     YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
 

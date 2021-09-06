@@ -1,10 +1,10 @@
 package smily.plugin.randomevent.config;
 
 public class YamlVariable{
-    private Integer cooldown;
-    private Boolean started;
-    private Integer day;
-    private PtEventConfigVariable pt_event;
+    public Integer cooldown;
+    public Boolean started;
+    public Integer day;
+    public PtEventConfigVariable pt_event;
 
     public Boolean getStarted() {
         return started;

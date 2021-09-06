@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
@@ -19,9 +18,7 @@ public class TestCode {
     // private PrintWriter writer;
 
     @Test
-    public void randomDouble() throws IOException{
-        
-
+    public void randomDouble() throws FileNotFoundException {
         if (fileConfig == null){
             getFileConfig();
         }
@@ -39,7 +36,8 @@ public class TestCode {
 
             try {
                 if (field.get(yamlVariable) == null){
-                    System.err.println("cannot be null");
+                    System.err.println("Error : a value cannot be null");
+                    System.err.println("Recreating default config");
                 }
 
             } catch (IllegalArgumentException e) {
@@ -66,7 +64,7 @@ public class TestCode {
     public YamlVariable get() throws FileNotFoundException{
         getInputStream();
 
-
+        yaml = new Yaml(new CustomClassLoaderConstructor(YamlVariable.class.getClassLoader()));
         return yamlVariable = yaml.load(inputStream);
     }
 
