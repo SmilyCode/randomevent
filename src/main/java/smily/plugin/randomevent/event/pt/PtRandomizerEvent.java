@@ -16,7 +16,7 @@ public final class PtRandomizerEvent implements Event{
     public void doEvent(Player player) {
         ptEvents.add(new PtLightningEvent(player));
 
-        PtEvents ptEvent = (PtEvents) Randomizer.randomListValue(ptEvents);
+        PtEvents ptEvent = Randomizer.randomListValue(ptEvents);
         ptEvent.doEvent();
     }
     

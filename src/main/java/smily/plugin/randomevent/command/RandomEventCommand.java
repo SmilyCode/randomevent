@@ -24,11 +24,12 @@ import java.util.List;
 
 public class RandomEventCommand implements CommandExecutor, TabCompleter {
 
-    Time second = PluginContext.context.getBean(Second.class);
-    Time minute = PluginContext.context.getBean(Minute.class);
-    Time tick = PluginContext.context.getBean(Tick.class);
-    PluginConfig pluginConfig = PluginContext.context.getBean(PluginConfig.class);
+    private Time second = PluginContext.context.getBean(Second.class);
+    private Time minute = PluginContext.context.getBean(Minute.class);
+    private Time tick = PluginContext.context.getBean(Tick.class);
+    private PluginConfig pluginConfig = PluginContext.context.getBean(PluginConfig.class);
     private YamlVariable yamlVariable = pluginConfig.getYamlVariable();
+    private StartRandomEvent startRandomEvent = new StartRandomEvent();
 
 
     @Override
@@ -40,15 +41,15 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                         switch (args[2]) {
                             case "second":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " second");
-                                yamlVariable.setCooldown(second.setTick(Integer.parseInt(args[1])));
+                                startRandomEvent.setEventCooldown(second.setTick(Integer.parseInt(args[1]))); 
                                 break;
                             case "minute":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " minute");
-                                yamlVariable.setCooldown(minute.setTick(Integer.parseInt(args[1])));
+                                startRandomEvent.setEventCooldown(minute.setTick(Integer.parseInt(args[1]))); 
                                 break;
                             case "tick":
                                 Messager.sendGlobalMessage(sender, "set cooldown to " + Integer.parseInt(args[1]) + " tick");
-                                yamlVariable.setCooldown(tick.setTick(Integer.parseInt(args[1])));
+                                startRandomEvent.setEventCooldown(tick.setTick(Integer.parseInt(args[1]))); 
                                 break;
                             default:
                                 Messager.sendGlobalMessage(sender, "Unit doesn't exist");
@@ -67,14 +68,14 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                 case "start":
                 if (!yamlVariable.getStarted()){
                     
-                    if (yamlVariable.getStarted() == null) {
+                    if (yamlVariable.getCooldown() == null) {
                     
-                        yamlVariable.setCooldown(minute.setTick(1));
+                        startRandomEvent.setEventCooldown(minute.setTick(1));
 
                     }
                     
                     Messager.sendGlobalMessage(sender, "Random event will happen...");
-                    new StartRandomEvent();
+                    startRandomEvent.startEvent();;
                     yamlVariable.setStarted(true);
                 } else {
                     
@@ -119,6 +120,5 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
 
         return arguments;
     }
-
 
 }

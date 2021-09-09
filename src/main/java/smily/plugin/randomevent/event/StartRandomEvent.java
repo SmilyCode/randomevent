@@ -1,8 +1,8 @@
 package smily.plugin.randomevent.event;
 
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
 
-import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.effects.EffectEventAdapter;
 import smily.plugin.randomevent.event.lightning.LightningEventAdapter;
 import smily.plugin.randomevent.event.mobs.RandomMobsAdapter;
@@ -19,7 +19,8 @@ public class StartRandomEvent {
     private boolean errorHandlers;
 
     private final EventErrorHandler eventErrorHandler = PluginContext.context.getBean(EventErrorHandler.class);
-    private final YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
+    @NotNull
+    private Integer eventCooldown;
 
     Event[] events = {
             new EffectEventAdapter(),
@@ -35,12 +36,20 @@ public class StartRandomEvent {
         if (!errorHandlers) {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(PluginContext.getPlugin(), () -> {
                 Bukkit.getOnlinePlayers().stream().forEach(player -> {
-                    Event event = (Event) Randomizer.randomListValue(Arrays.asList(events));
+                    Event event = Randomizer.randomListValue(Arrays.asList(events));
                     event.doEvent(player);
                 });
-            }, 0, yamlVariable.getCooldown());
+            }, 0, eventCooldown);
         } else {
             
         }
+    }
+
+    public Integer getEventCooldown() {
+        return eventCooldown;
+    }
+
+    public void setEventCooldown(Integer eventCooldown) {
+        this.eventCooldown = eventCooldown;
     }
 }
