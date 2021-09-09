@@ -3,7 +3,6 @@ package smily.plugin.randomevent.config;
 public class YamlVariable{
     public Integer cooldown;
     public Boolean started;
-    public Integer day;
     public PtEventConfigVariable pt_event;
 
     public Boolean getStarted() {
@@ -16,14 +15,6 @@ public class YamlVariable{
 
     public void setPt_event(PtEventConfigVariable pt_event) {
         this.pt_event = pt_event;
-    }
-
-    public Integer getDay() {
-        return day;
-    }
-
-    public void setDay(Integer day) {
-        this.day = day;
     }
 
     public Integer getCooldown() {

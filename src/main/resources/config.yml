@@ -1,0 +1,4 @@
+cooldown: 1
+started: true
+pt_event:
+  pt_lightning_duration: 30

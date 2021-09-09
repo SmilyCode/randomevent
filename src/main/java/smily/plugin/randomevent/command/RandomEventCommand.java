@@ -12,6 +12,7 @@ import org.jetbrains.annotations.Nullable;
 import net.md_5.bungee.api.ChatColor;
 import smily.plugin.randomevent.config.PluginConfig;
 import smily.plugin.randomevent.config.YamlVariable;
+import smily.plugin.randomevent.event.StartRandomEvent;
 import smily.plugin.randomevent.event.pt.PtLightningEvent;
 import smily.plugin.randomevent.event.util.Messager;
 import smily.plugin.randomevent.time.Minute;
@@ -28,8 +29,8 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
     Time second = PluginContext.context.getBean(Second.class);
     Time minute = PluginContext.context.getBean(Minute.class);
     Time tick = PluginContext.context.getBean(Tick.class);
-    YamlVariable yamlVariable = PluginContext.context.getBean(YamlVariable.class);
     PluginConfig pluginConfig = PluginContext.context.getBean(PluginConfig.class);
+    private YamlVariable yamlVariable = pluginConfig.getYamlVariable();
 
 
     @Override
@@ -75,7 +76,7 @@ public class RandomEventCommand implements CommandExecutor, TabCompleter {
                     }
                     
                     Messager.sendGlobalMessage(sender, "Random event will happen...");
-                    new PtLightningEvent((Player) sender).doEvent();
+                    new StartRandomEvent();
                     yamlVariable.setStarted(true);
                 } else {
                     
