@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -13,7 +12,6 @@ import net.md_5.bungee.api.ChatColor;
 import smily.plugin.randomevent.config.PluginConfig;
 import smily.plugin.randomevent.config.YamlVariable;
 import smily.plugin.randomevent.event.StartRandomEvent;
-import smily.plugin.randomevent.event.pt.PtLightningEvent;
 import smily.plugin.randomevent.event.util.Messager;
 import smily.plugin.randomevent.time.Minute;
 import smily.plugin.randomevent.time.Second;
